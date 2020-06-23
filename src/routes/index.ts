@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import {Router} from 'express';
 import UserRouter from './Users';
 import AuthRouter from './Auth';
 

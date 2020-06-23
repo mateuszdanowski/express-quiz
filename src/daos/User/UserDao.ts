@@ -1,63 +1,73 @@
-import { IUser } from '@entities/User';
+import {IUser} from '@entities/User';
+import {DbDao} from '../Db/DbDao';
 
 
 export interface IUserDao {
-    getOne: (email: string) => Promise<IUser | null>;
-    getAll: () => Promise<IUser[]>;
-    add: (user: IUser) => Promise<void>;
-    update: (user: IUser) => Promise<void>;
-    delete: (id: number) => Promise<void>;
+  getOne: (username: string) => Promise<IUser | null>;
+  getAll: () => Promise<IUser[]>;
+  add: (username: string, pwdHash: string) => Promise<void>;
+  updatePwd: (username: string, pwdHash: string) => Promise<void>;
 }
 
-class UserDao implements IUserDao {
+class UserDao extends DbDao implements IUserDao {
 
 
-    /**
-     * @param email
-     */
-    public async getOne(email: string): Promise<IUser | null> {
-        // TODO
-        return [] as any;
+  /**
+   * @param username
+   */
+  public async getOne(username: string): Promise<IUser | null> {
+    try {
+      const stmt = 'SELECT * FROM users WHERE username = ?';
+      const user = await super.promisifiedGet(stmt, [username]);
+      return user !== undefined ? user : null;
+    } catch (err) {
+      throw err;
     }
+  }
 
 
-    /**
-     *
-     */
-    public async getAll(): Promise<IUser[]> {
-        // TODO
-        return [] as any;
+  /**
+   *
+   */
+  public async getAll(): Promise<IUser[]> {
+    try {
+      const stmt = 'SELECT * FROM users';
+      const users = await super.promisifiedAll(stmt);
+      return users !== undefined ? users : [];
+    } catch (err) {
+      throw err;
     }
+  }
 
 
-    /**
-     *
-     * @param user
-     */
-    public async add(user: IUser): Promise<void> {
-        // TODO
-        return {} as any;
+  /**
+   *
+   * @param username
+   * @param pwdHash
+   */
+  public async add(username: string, pwdHash: string): Promise<void> {
+    try {
+      const stmt = 'INSERT INTO users (username, pwdHash) VALUES (?, ?)';
+      await super.promisifiedRun(stmt, [username, pwdHash]);
+    } catch (err) {
+      throw err;
     }
+  }
 
 
-    /**
-     *
-     * @param user
-     */
-    public async update(user: IUser): Promise<void> {
-        // TODO
-        return {} as any;
+  /**
+   *
+   * @param username
+   * @param pwdHash
+   */
+  public async updatePwd(username: string, pwdHash: string): Promise<void> {
+    try {
+      const stmt = 'UPDATE users SET pwdHash = ? WHERE username = ?';
+      await super.promisifiedRun(stmt, [pwdHash, username]);
+    } catch (err) {
+      throw err;
     }
-
-
-    /**
-     *
-     * @param id
-     */
-    public async delete(id: number): Promise<void> {
-        // TODO
-        return {} as any;
-    }
+  }
 }
 
 export default UserDao;

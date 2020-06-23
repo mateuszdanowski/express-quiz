@@ -1,11 +1,10 @@
-import { Request, Response, Router } from 'express';
-import { BAD_REQUEST, CREATED, OK } from 'http-status-codes';
-import { ParamsDictionary } from 'express-serve-static-core';
+import {Request, Response, Router} from 'express';
+import {BAD_REQUEST, OK} from 'http-status-codes';
 
-import UserDao from '@daos/User/UserDao.mock';
-import { paramMissingError } from '@shared/constants';
-import { adminMW } from './middleware';
-import { UserRoles } from '@entities/User';
+import UserDao from '@daos/User/UserDao';
+import {invalidPasswordErr, paramMissingError, passwordsDoNotMatchErr, userNotFoundErr} from '@shared/constants';
+import {adminMW} from './middleware';
+import {comparePass, hashPwd} from '@shared/functions';
 
 
 // Init shared
@@ -18,27 +17,8 @@ const userDao = new UserDao();
  ******************************************************************************/
 
 router.get('/all', async (req: Request, res: Response) => {
-    const users = await userDao.getAll();
-    return res.status(OK).json({users});
-});
-
-
-/******************************************************************************
- *                       Add One - "POST /api/users/add"
- ******************************************************************************/
-
-router.post('/add', async (req: Request, res: Response) => {
-    // Check parameters
-    const { user } = req.body;
-    if (!user) {
-        return res.status(BAD_REQUEST).json({
-            error: paramMissingError,
-        });
-    }
-    // Add new user
-    user.role = UserRoles.Standard;
-    await userDao.add(user);
-    return res.status(CREATED).end();
+  const users = await userDao.getAll();
+  return res.status(OK).json({users});
 });
 
 
@@ -46,29 +26,39 @@ router.post('/add', async (req: Request, res: Response) => {
  *                       Update - "PUT /api/users/update"
  ******************************************************************************/
 
-router.put('/update', async (req: Request, res: Response) => {
-    // Check Parameters
-    const { user } = req.body;
-    if (!user) {
-        return res.status(BAD_REQUEST).json({
-            error: paramMissingError,
-        });
-    }
-    // Update user
-    user.id = Number(user.id);
-    await userDao.update(user);
-    return res.status(OK).end();
-});
+router.post('/update', async (req: Request, res: Response) => {
+  // Check Parameters
+  const {passwordUpdateData} = req.body;
+  if (!passwordUpdateData) {
+    return res.status(BAD_REQUEST).json({
+      error: paramMissingError,
+    });
+  }
+  // Check if passwords match
+  if (passwordUpdateData.newPass !== passwordUpdateData.newPassConfirmation) {
+    return res.status(BAD_REQUEST).json({
+      error: passwordsDoNotMatchErr,
+    });
+  }
+  // Fetch username of user
+  const username = req.session!.username;
 
-
-/******************************************************************************
- *                    Delete - "DELETE /api/users/delete/:id"
- ******************************************************************************/
-
-router.delete('/delete/:id', async (req: Request, res: Response) => {
-    const { id } = req.params as ParamsDictionary;
-    await userDao.delete(Number(id));
-    return res.status(OK).end();
+  // Fetch user
+  const user = await userDao.getOne(username);
+  if (!user) {
+    return res.status(BAD_REQUEST).json({
+      error: userNotFoundErr,
+    });
+  }
+  // Check if the entered password is correct
+  if (!comparePass(passwordUpdateData.currentPass, user.pwdHash)) {
+    return res.status(BAD_REQUEST).json({
+      error: invalidPasswordErr,
+    });
+  }
+  // Update password
+  await userDao.updatePwd(username, hashPwd(passwordUpdateData.newPass));
+  return res.status(OK).json({});
 });
 
 
