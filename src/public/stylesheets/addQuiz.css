@@ -1,0 +1,34 @@
+body {
+  padding: 100px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+body .quiz-column {
+  display: inline-block;
+  margin-right: 2em;
+  vertical-align: top;
+}
+
+body .quiz-column .column-header {
+  padding-bottom: 5px;
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+
+/* Change Password Column */
+
+body .add-quiz-col input {
+  margin-bottom: 10px;
+}
+
+body .add-quiz-col #add-quiz-btn {
+  margin-top: 2px;
+  margin-bottom: 10px;
+}
+
+body .add-quiz-col #go-back-btn {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}

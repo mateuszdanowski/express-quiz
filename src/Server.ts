@@ -79,6 +79,15 @@ app.get('/users', (req: Request, res: Response) => {
   }
 });
 
+app.get('/addQuiz', (req: Request, res: Response) => {
+  const jwt = req.signedCookies[cookieProps.key];
+  if (!jwt) {
+    res.redirect('/');
+  } else {
+    res.sendFile('addQuiz.html', {root: viewsDir});
+  }
+});
+
 app.get('/password', (req: Request, res: Response) => {
   const jwt = req.signedCookies[cookieProps.key];
   if (!jwt) {

@@ -22,7 +22,12 @@ body .add-user-col input {
   margin-bottom: 10px;
 }
 
-body .add-user-col #add-user-btn {
+body .add-user-col #add-quiz-btn {
+  margin-top: 2px;
+  margin-bottom: 10px;
+}
+
+body .add-user-col #change-pwd-btn {
   margin-top: 2px;
   margin-bottom: 10px;
 }
