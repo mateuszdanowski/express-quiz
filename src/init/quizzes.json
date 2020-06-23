@@ -1,0 +1,144 @@
+[
+  {
+    "name": "quiz1",
+    "content": [
+      {
+        "question": "Ile sekund ma godzina?",
+        "answers": [
+          "60",
+          "360",
+          "1200",
+          "3600"
+        ],
+        "correctAnswer": "answer-4",
+        "penalty": "20s"
+      },
+      {
+        "question": "Ile to 2 - (-2)?",
+        "answers": [
+          "4",
+          "2",
+          "-2",
+          "-4"
+        ],
+        "correctAnswer": "answer-1",
+        "penalty": "99s"
+      }
+    ]
+  },
+  {
+    "name": "quiz2",
+    "content": [
+      {
+        "question": "Ile sekund ma godzina?",
+        "answers": [
+          "60",
+          "360",
+          "1200",
+          "3600"
+        ],
+        "correctAnswer": "answer-4",
+        "penalty": "20s"
+      },
+      {
+        "question": "Ile to 2 - (-2)?",
+        "answers": [
+          "4",
+          "2",
+          "-2",
+          "-4"
+        ],
+        "correctAnswer": "answer-1",
+        "penalty": "99s"
+      },
+      {
+        "question": "Która z podanych liczb jest największa?",
+        "answers": [
+          "5/6",
+          "3/4",
+          "6/7",
+          "1/2"
+        ],
+        "correctAnswer": "answer-3",
+        "penalty": "13s"
+      },
+      {
+        "question": "Ile zer ma miliard?",
+        "answers": [
+          "6",
+          "15",
+          "12",
+          "9"
+        ],
+        "correctAnswer": "answer-4",
+        "penalty": "12s"
+      },
+      {
+        "question": "Jasio ma 100 jabłek. Oddaje Małgosi 9 jabłek. Ile procent jabłek zostało u Jasia?",
+        "answers": [
+          "91",
+          "81",
+          "90",
+          "9"
+        ],
+        "correctAnswer": "answer-1",
+        "penalty": "25s"
+      },
+      {
+        "question": "Ile to 2 + 2 x 2",
+        "answers": [
+          "8",
+          "6",
+          "10",
+          "4"
+        ],
+        "correctAnswer": "answer-2",
+        "penalty": "30s"
+      },
+      {
+        "question": "Ile to jest 2^0?",
+        "answers": [
+          "1",
+          "0",
+          "-1",
+          "2"
+        ],
+        "correctAnswer": "answer-1",
+        "penalty": "10s"
+      },
+      {
+        "question": "W pewnej rodzinie jest pięciu braci, kazdy z nich ma jedną siostrę. Ile rodzeństwa jest w tej rodzinie?",
+        "answers": [
+          "5",
+          "10",
+          "6",
+          "12"
+        ],
+        "correctAnswer": "answer-3",
+        "penalty": "20s"
+      },
+      {
+        "question": "Kij ma dwa końce. Ile końców ma 5 i pół kija?",
+        "answers": [
+          "2",
+          "0",
+          "12",
+          "16"
+        ],
+        "correctAnswer": "answer-3",
+        "penalty": "20s"
+      },
+      {
+        "question": "Która z podanych liczb nie jest liczbą pierwszą?",
+        "answers": [
+          "1",
+          "2",
+          "3",
+          "137"
+        ],
+        "correctAnswer": "answer-1",
+        "penalty": "15s"
+      }
+    ]
+  }
+]
