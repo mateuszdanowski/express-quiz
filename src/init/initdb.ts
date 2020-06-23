@@ -49,7 +49,6 @@ void (async () => {
   const initialScores = await jsonfile.readFile(SCORES_PATH);
   initialScores.forEach((score: { quizId: number; result: string; }) => scoreDao.add(score.quizId, score.result));
 
-  // TODO różna liczba rekordów się pojawia (?)
   // const scores = await scoreDao.getAll();
   // console.log(scores);
 })();

@@ -66,11 +66,12 @@ document.addEventListener('click', function (event) {
   const ele = event.target;
   if (ele.matches('#add-quiz-btn')) {
     addQuiz();
-  }
-  else if (ele.matches('#change-pwd-btn')) {
+  } else if (ele.matches('#change-pwd-btn')) {
     changePassword();
   } else if (ele.matches('#logout-btn')) {
     logoutUser();
+  } else if (ele.matches('#display-scores-btn')) {
+    displayScores();
   }
 }, false)
 
@@ -91,4 +92,8 @@ function logoutUser() {
   .then(() => {
     window.location.href = '/';
   })
+}
+
+function displayScores() {
+  window.location.href = '/scores';
 }

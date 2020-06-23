@@ -97,6 +97,15 @@ app.get('/password', (req: Request, res: Response) => {
   }
 });
 
+app.get('/scores', (req: Request, res: Response) => {
+  const jwt = req.signedCookies[cookieProps.key];
+  if (!jwt) {
+    res.redirect('/');
+  } else {
+    res.sendFile('scores.html', {root: viewsDir});
+  }
+});
+
 
 // Export express instance
 export default app;
