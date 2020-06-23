@@ -1,14 +1,17 @@
 import jsonfile from 'jsonfile';
 import fs from 'fs-extra';
 
-import {hashPwd} from '../shared/functions';
+import {IQuizContent} from '@entities/QuizContent';
 import {DbDao, TableName} from '../daos/Db/DbDao';
 import UserDao from '../daos/User/UserDao';
 import QuizDao from '../daos/Quiz/QuizDao';
-import {IQuizContent} from '@entities/QuizContent';
+import ScoreDao from '../daos/Score/ScoreDao';
+
+import {hashPwd} from '../shared/functions';
 
 const DB_PATH = './database';
 const QUIZZES_PATH = './src/init/quizzes.json';
+const SCORES_PATH = './src/init/scores.json';
 
 void (async () => {
   await fs.promises.rmdir(DB_PATH, {recursive: true});
@@ -27,9 +30,10 @@ void (async () => {
   const dbDao = new DbDao();
   const userDao = new UserDao();
   const quizDao = new QuizDao();
+  const scoreDao = new ScoreDao();
 
   await dbDao.createTable(TableName.USERS);
-  initialUsers.forEach(user => userDao.add(user.username, user.pwdHash));
+  await initialUsers.forEach(user => userDao.add(user.username, user.pwdHash));
 
   // const users = await userDao.getAll();
   // console.log(users);
@@ -42,7 +46,12 @@ void (async () => {
   // console.log(quizzes);
 
   await dbDao.createTable(TableName.SCORES);
-  // initialScores.forEach(score => scoreDao.add(score.quiz_id, score.result));
+  const initialScores = await jsonfile.readFile(SCORES_PATH);
+  initialScores.forEach((score: { quizId: number; result: string; }) => scoreDao.add(score.quizId, score.result));
+
+  // TODO różna liczba rekordów się pojawia (?)
+  // const scores = await scoreDao.getAll();
+  // console.log(scores);
 })();
 
 

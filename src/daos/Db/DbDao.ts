@@ -43,7 +43,7 @@ export class DbDao {
       case TableName.QUIZZES:
         return this.promisifiedRun('CREATE TABLE quizzes (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, content TEXT)');
       case TableName.SCORES:
-        return this.promisifiedRun('CREATE TABLE scores (id INTEGER PRIMARY KEY AUTOINCREMENT , quizId INTEGER REFERENCES quizzes (id), score INTEGER )');
+        return this.promisifiedRun('CREATE TABLE scores (id INTEGER PRIMARY KEY AUTOINCREMENT , quizId INTEGER REFERENCES quizzes (id), result INTEGER )');
     }
     return {} as any;
   }

@@ -1,0 +1,22 @@
+[
+  {
+    "quizId": 1,
+    "result": "20s"
+  },
+  {
+    "quizId": 1,
+    "result": "30s"
+  },
+  {
+    "quizId": 2,
+    "result": "5s"
+  },
+  {
+    "quizId": 1,
+    "result": "123s"
+  },
+  {
+    "quizId": 2,
+    "result": "10s"
+  }
+]
