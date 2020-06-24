@@ -33,7 +33,7 @@ function changePassword() {
 }
 
 function goBack() {
-  window.location.href = '/users';
+  window.location.href = '/quiz';
 }
 
 function logoutUser() {

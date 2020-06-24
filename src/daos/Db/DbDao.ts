@@ -41,9 +41,9 @@ export class DbDao {
       case TableName.USERS:
         return this.promisifiedRun('CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, pwdHash TEXT)');
       case TableName.QUIZZES:
-        return this.promisifiedRun('CREATE TABLE quizzes (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, content TEXT)');
+        return this.promisifiedRun('CREATE TABLE quizzes (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, questions TEXT)');
       case TableName.SCORES:
-        return this.promisifiedRun('CREATE TABLE scores (id INTEGER PRIMARY KEY AUTOINCREMENT , quizId INTEGER REFERENCES quizzes (id), result TEXT )');
+        return this.promisifiedRun('CREATE TABLE scores (id INTEGER PRIMARY KEY AUTOINCREMENT, quizId INTEGER REFERENCES quizzes (id), userId INTEGER REFERENCES users (id), result INTEGER, statistics TEXT)');
     }
     return {} as any;
   }

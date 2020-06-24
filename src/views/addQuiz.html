@@ -6,19 +6,22 @@
   <link rel="stylesheet" type="text/css" href="/stylesheets/addQuiz.css"/>
 </head>
 <body>
-<div class="quiz-column add-quiz-col">
-  <div class="column-header">Add quiz:</div>
-  <div>
-    <input type="text" id="quiz-name-input" placeholder="Name">
+<button id="go-back-btn">Go back</button>
+<div class="content">
+  <div class="header">
+    <h1>Dodaj swój własny quiz!</h1>
+    <p>Format pytania: <span id="question-format" class="small-text"><br>{<br>"id": number,<br>"statement": string,<br>"answer": number,<br>"penalty": number<br>}</span></p>
   </div>
-  <div>
-    <input type="text" id="quiz-content-input" placeholder="Content in JSON">
-  </div>
-  <div>
-    <button id="add-quiz-btn">Add</button>
-  </div>
-  <div>
-    <button id="go-back-btn">Go back</button>
+  <div class="form">
+    <div class="form-input">
+      <label class="form-label" for="quiz-name-input">Nazwa quizu</label>
+      <input id="quiz-name-input" class="input-area" name="quiz-name-input" type="text" placeholder="Nazwa">
+    </div>
+    <div class="form-input">
+      <label class="form-label" for="quiz-questions-input">Pytania (w formacie tablicy pytań)</label>
+      <textarea id="quiz-questions-input" class="input-area" name="quiz-questions-input" rows="20" cols="40" placeholder="Tablica pytań w formacie JSON"></textarea>
+    </div>
+    <button id="add-quiz-btn" class="form-button">Add</button>
   </div>
 </div>
 </body>

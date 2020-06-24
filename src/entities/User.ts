@@ -12,18 +12,12 @@ export class User implements IUser {
 
 
   constructor(
-      usernameOrUser?: string | IUser,
-      pwdHash?: string,
       id?: number,
+      username?: string,
+      pwdHash?: string,
   ) {
-    if (typeof usernameOrUser === 'string' || typeof usernameOrUser === 'undefined') {
-      this.username = usernameOrUser || '';
-      this.pwdHash = pwdHash || '';
-      this.id = id || -1;
-    } else {
-      this.username = usernameOrUser.username;
-      this.pwdHash = usernameOrUser.pwdHash;
-      this.id = usernameOrUser.id;
-    }
+    this.id = id || -1;
+    this.username = username || '';
+    this.pwdHash = pwdHash || '';
   }
 }

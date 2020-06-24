@@ -11,7 +11,7 @@ document.addEventListener('click', function (event) {
     };
     Http.Post('/api/auth/login', data)
     .then(() => {
-      window.location.href = '/users';
+      window.location.href = '/quiz';
     })
   }
 }, false)

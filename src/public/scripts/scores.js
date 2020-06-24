@@ -2,7 +2,7 @@
  *                          Fetch and display scores
  ******************************************************************************/
 
-displayQuizNames();
+displayQuizNamesUserFinished();
 displayScores();
 
 function displayQuizNames() {

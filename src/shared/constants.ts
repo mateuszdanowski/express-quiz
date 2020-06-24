@@ -5,8 +5,10 @@ export const userNotFoundErr = 'User not found';
 export const invalidPasswordErr = 'Invalid password'
 export const passwordsDoNotMatchErr = 'Passwords do not match!';
 export const invalidJson = 'Invalid JSON';
-export const quizContentLengthErr = 'Invalid length of quiz content';
-export const quizContentFieldMissingErr = 'Some fields are missing in quiz content';
+export const quizQuestionsLengthErr = 'Invalid length of quiz questions';
+export const quizQuestionsFieldMissingErr = 'Some fields are missing in quiz question';
+export const invalidQuestionIdsErr = 'Question ids are invalid';
+export const invalidPenaltyValueErr = 'Penalty cannot be below zero';
 
 // Numbers
 export const pwdSaltRounds = 12;

@@ -1,10 +1,10 @@
-import {QuizContent} from '@entities/QuizContent';
+import {Question} from '@entities/./Question';
 
 
 export interface IQuiz {
   id: number;
   name: string;
-  content: QuizContent[];
+  questions: Question[];
 }
 
 
@@ -12,22 +12,16 @@ export class Quiz implements IQuiz {
 
   public id: number;
   public name: string;
-  public content: QuizContent[];
+  public questions: Question[];
 
 
   constructor(
-      nameOrQuiz?: string | IQuiz,
       id?: number,
-      content?: QuizContent[],
+      name?: string,
+      questions?: Question[],
   ) {
-    if (typeof nameOrQuiz === 'string' || typeof nameOrQuiz === 'undefined') {
-      this.name = nameOrQuiz || '';
-      this.id = id || -1;
-      this.content = content || [];
-    } else {
-      this.name = nameOrQuiz.name;
-      this.id = nameOrQuiz.id;
-      this.content = nameOrQuiz.content;
-    }
+    this.id = id || -1;
+    this.name = name || '';
+    this.questions = questions || [];
   }
 }

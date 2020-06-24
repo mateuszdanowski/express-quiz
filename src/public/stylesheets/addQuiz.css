@@ -1,34 +1,75 @@
+:root {
+  --color-lightest: #f9fdfe;
+  --color-gray-light: #cdcfcf;
+  --color-gray-medium: #686a69;
+  --color-gray-dark: #414643;
+  --color-darkest: #2a2f2c;
+}
+
 body {
-  padding: 100px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: var(--color-lightest);
+  color: var(--color-gray-medium);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  line-height: 1.75;
 }
 
-body .quiz-column {
-  display: inline-block;
-  margin-right: 2em;
-  vertical-align: top;
+h1 {
+  color: var(--color-darkest);
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+  line-height: 1.125;
 }
 
-body .quiz-column .column-header {
-  padding-bottom: 5px;
-  font-weight: 700;
-  font-size: 1.2em;
+.content {
+  width: 90vw;
+  max-width: 550px;
+  margin: 8vh auto;
 }
 
-
-/* Change Password Column */
-
-body .add-quiz-col input {
-  margin-bottom: 10px;
+.form {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 1rem 0 2rem;
+  border-top: 1px solid var(--color-gray-light);
+  border-bottom: 1px solid var(--color-gray-light);
+  overflow: hidden;
 }
 
-body .add-quiz-col #add-quiz-btn {
-  margin-top: 2px;
-  margin-bottom: 10px;
+.form-input {
+  display: block;
+  margin-top: 0;
+  padding: 1rem 1rem;
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
 }
 
-body .add-quiz-col #go-back-btn {
-  margin-top: 25px;
-  margin-bottom: 10px;
-  font-size: 15px;
+.input-area {
+  padding: 0.5rem 0.5rem;
+}
+
+.form-label {
+  display: block;
+  color: var(--color-gray-dark);
+  font-family: Lato, sans-serif;
+  font-size: 75%;
+  line-height: 1.125;
+}
+
+.form-button {
+  display: block;
+  margin: 0.5rem 1rem 0;
+  padding: 0 1rem 0.125rem;
+  background-color: var(--color-gray-medium);
+  border: 0;
+  color: var(--color-lightest);
+  font-family: lato, sans-serif;
+  font-size: 100%;
+  line-height: 1.5;
+}
+
+.small-text {
+  font-size: 80%;
 }

@@ -10,17 +10,17 @@ document.addEventListener('click', function (event) {
 
 function addQuiz() {
   const name = document.getElementById('quiz-name-input');
-  const content = document.getElementById('quiz-content-input');
+  const questions = document.getElementById('quiz-questions-input');
+  console.log(questions.value);
   const data = {
     quiz: {
       name: name.value,
-      content: content.value
+      questions: questions.value
     },
   };
   Http.Post('/api/quizzes/add', data)
   .then(response => response.json())
   .then((response) => {
-    console.log(response);
     if (response.error) {
       window.location.href = '/addQuiz';
     } else {
@@ -30,5 +30,5 @@ function addQuiz() {
 }
 
 function goBack() {
-  window.location.href = '/users';
+  window.location.href = '/quiz';
 }

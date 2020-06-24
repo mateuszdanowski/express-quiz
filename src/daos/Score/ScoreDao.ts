@@ -5,7 +5,7 @@ import {DbDao} from '../Db/DbDao';
 export interface IScoreDao {
   getOne: (id: number) => Promise<IScore | null>;
   getAll: () => Promise<IScore[]>;
-  add: (quizId: number, result: string) => Promise<void>;
+  add: (quizId: number, userId: number, result: number, statistics: string) => Promise<void>;
   update: (score: IScore) => Promise<void>;
   delete: (id: number) => Promise<void>;
 }
@@ -44,12 +44,14 @@ class ScoreDao extends DbDao implements IScoreDao {
   /**
    *
    * @param quizId
+   * @param userId
    * @param result
+   * @param statistics
    */
-  public async add(quizId: number, result: string): Promise<void> {
+  public async add(quizId: number, userId: number, result: number, statistics: string): Promise<void> {
     try {
-      const stmt = 'INSERT INTO scores (quizId, result) VALUES (?, ?)'
-      await super.promisifiedRun(stmt, [quizId, result]);
+      const stmt = 'INSERT INTO scores (quizId, userId, result, statistics) VALUES (?, ?, ?, ?)'
+      await super.promisifiedRun(stmt, [quizId, userId, result, statistics]);
     } catch (err) {
       throw err;
     }

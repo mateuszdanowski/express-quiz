@@ -5,13 +5,13 @@ import QuizDao from '@daos/Quiz/QuizDao';
 import {
   invalidJson,
   paramMissingError,
-  passwordsDoNotMatchErr, quizContentFieldMissingErr,
-  quizContentLengthErr,
-  userNotFoundErr
+  quizQuestionsFieldMissingErr,
+  quizQuestionsLengthErr,
+  invalidQuestionIdsErr,
+  invalidPenaltyValueErr
 } from '@shared/constants';
 import {adminMW} from './middleware';
-import {comparePass, hashPwd} from '@shared/functions';
-import {IQuizContent} from '@entities/QuizContent';
+import {Question} from '@entities/Question';
 
 
 // Init shared
@@ -35,35 +35,62 @@ router.get('/all', async (req: Request, res: Response) => {
 
 router.post('/add', async (req: Request, res: Response) => {
   // Check parameters
-  const { quiz } = req.body;
+  const {quiz} = req.body;
   if (!quiz) {
     return res.status(BAD_REQUEST).json({
       error: paramMissingError,
     });
   }
-  // Check if json is of type QuizContent
-  let quizContent: IQuizContent[];
+  // Check if json is of type Question[]
+  let questions: Question[];
   try {
-    quizContent = JSON.parse(quiz.content);
-    // console.log(Object.keys(quizContent).length);
-    if (Object.keys(quizContent).length === 0) {
+    questions = JSON.parse(quiz.questions);
+    if (Object.keys(questions).length === 0) {
       return res.status(BAD_REQUEST).json({
-        error: quizContentLengthErr,
+        error: quizQuestionsLengthErr,
       });
     }
-    // console.log(quizContent);
-    for (const question of quizContent) {
+    const ids: number[] = [];
+    const penalties: number[] = [];
+    // console.log(questions);
+    for (const question of questions) {
       // console.log(question);
-      for (const field of ['question', 'answers', 'correctAnswer', 'penalty']) {
+      for (const field of ['id', 'statement', 'answer', 'penalty']) {
         if (!(field in question)) {
           // console.log(field);
           return res.status(BAD_REQUEST).json({
-            error: quizContentFieldMissingErr,
+            error: quizQuestionsFieldMissingErr,
           });
         }
       }
+      ids.push(question.id);
+      penalties.push(question.penalty);
     }
-    quiz.content = JSON.stringify(quizContent);
+    const hasDuplicates = (list: number[]) => {
+      return (new Set(list)).size !== list.length;
+    };
+    const isMinEqualTo = (list: number[], equalTo: number) => {
+      return Math.min(...list) === equalTo;
+    };
+    const isMaxEqualTo = (list: number[], equalTo: number) => {
+      return Math.max(...list) === equalTo;
+    };
+    const isMinBelowZero = (list: number[]) => {
+      return Math.min(...list) < 0;
+    };
+
+    if (hasDuplicates(ids) || !(isMinEqualTo(ids, 1) && isMaxEqualTo(ids, questions.length))) {
+      return res.status(BAD_REQUEST).json({
+        error: invalidQuestionIdsErr,
+      });
+    }
+    if (isMinBelowZero(penalties)) {
+      return res.status(BAD_REQUEST).json({
+        error: invalidPenaltyValueErr,
+      });
+    }
+
+    quiz.questions = JSON.stringify(questions);
   } catch (err) {
     return res.status(BAD_REQUEST).json({
       error: invalidJson,
@@ -71,7 +98,7 @@ router.post('/add', async (req: Request, res: Response) => {
   }
 
   // Add new quiz
-  await quizDao.add(quiz.name, quiz.content);
+  await quizDao.add(quiz.name, quiz.questions);
   return res.status(CREATED).json({});
 });
 

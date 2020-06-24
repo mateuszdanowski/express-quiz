@@ -33,10 +33,10 @@ router.post('/add', async (req: Request, res: Response) => {
       error: paramMissingError,
     });
   }
-  // TODO
+  // TODO check all fields (?)
 
   // Add new score
-  await scoreDao.add(score.quizId, score.result);
+  await scoreDao.add(score.quizId, score.userId, score.result, JSON.stringify(score.statistics));
   return res.status(CREATED).end();
 });
 

@@ -1,42 +1,29 @@
 [
   {
     "quizId": 1,
-    "result": "20s"
-  },
-  {
-    "quizId": 1,
-    "result": "30s"
-  },
-  {
-    "quizId": 2,
-    "result": "5s"
-  },
-  {
-    "quizId": 1,
-    "result": "123s"
-  },
-  {
-    "quizId": 2,
-    "result": "5245s"
-  },
-  {
-    "quizId": 2,
-    "result": "1822s"
-  },
-  {
-    "quizId": 2,
-    "result": "2121s"
-  },
-  {
-    "quizId": 2,
-    "result": "15s"
-  },
-  {
-    "quizId": 2,
-    "result": "40s"
-  },
-  {
-    "quizId": 2,
-    "result": "1s"
+    "userId": 1,
+    "result": 20,
+    "statistics": [
+      {
+        "question": {
+          "id": 1,
+          "statement": "QUESTION 1",
+          "answer": 123,
+          "penalty": 10
+        },
+        "usersAnswer": 123,
+        "timeSpent": 10
+      },
+      {
+        "question": {
+          "id": 2,
+          "statement": "QUESTION 2",
+          "answer": 321,
+          "penalty": 10
+        },
+        "usersAnswer": 123,
+        "timeSpent": 100
+      }
+    ]
   }
 ]

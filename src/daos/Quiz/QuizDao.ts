@@ -5,7 +5,7 @@ import {DbDao} from '../Db/DbDao';
 export interface IQuizDao {
   getOne: (name: string) => Promise<IQuiz | null>;
   getAll: () => Promise<IQuiz[]>;
-  add: (name: string, content: string) => Promise<void>;
+  add: (name: string, questions: string) => Promise<void>;
   update: (quiz: IQuiz) => Promise<void>;
   delete: (id: number) => Promise<void>;
 }
@@ -44,12 +44,12 @@ class QuizDao extends DbDao implements IQuizDao {
   /**
    *
    * @param name
-   * @param content
+   * @param questions
    */
-  public async add(name: string, content: string): Promise<void> {
+  public async add(name: string, questions: string): Promise<void> {
     try {
-      const stmt = 'INSERT INTO quizzes (name, content) VALUES (?, ?)'
-      await super.promisifiedRun(stmt, [name, content]);
+      const stmt = 'INSERT INTO quizzes (name, questions) VALUES (?, ?)'
+      await super.promisifiedRun(stmt, [name, questions]);
     } catch (err) {
       throw err;
     }
