@@ -1,52 +1,31 @@
 /******************************************************************************
- *                          Fetch and display quizzes
+ *                   Fetch and display quizzes for user
  ******************************************************************************/
 
-// const userId = (req!.user as User)._id as string;
-// const quizzes = (await db.quizzes.find({})) as Quiz[];
-//
-// const activeQuizzes = await Promise.all(
-//     quizzes.map(async quiz => {
-//       const quizWithActivity = quiz as QuizWithActivity;
-//       quizWithActivity.done =
-//           (await db.results.count({userId: userId, quizId: quiz.id})) > 0;
-//       return quizWithActivity;
-//     })
-// );
-// return res.render('index', {quizzes: activeQuizzes});
-//
-// displayQuizzes();
-//
-// markActiveQuizzesForUser
+displayQuizzesForUser();
 
-function displayQuizzes() {
-  Http.Get('/api/quizzes/all')
+function displayQuizzesForUser() {
+  Http.Get('/api/quizzes/allForUser')
   .then(response => response.json())
   .then((response) => {
     console.log(response);
-    const allQuizzes = response.quizzes;
-    // Empty the anchor
-    const allQuizzesAnchor = document.getElementById('all-quizzes-anchor');
-    allQuizzesAnchor.innerHTML = '';
-    // Append users to anchor
-    allQuizzes.forEach((quiz) => {
-      allQuizzesAnchor.innerHTML += getQuizDisplayEle(quiz);
+    const quizzes = response.quizzesForUser;
+    const quizzesListAnchor = document.getElementById('quizzes-list-anchor');
+    quizzesListAnchor.innerHTML = '';
+    quizzes.forEach((quiz) => {
+      quizzesListAnchor.innerHTML += getQuizSelectDisplayEle(quiz);
     });
   });
 }
 
-function getQuizDisplayEle(quiz) {
-  return `<div class="user-display-ele">
-
-        <div class="normal-view">
-            <div>Name: ${quiz.name}</div>
-            <div>Content: ${quiz.content}</div>
-        </div>
-    </div>`;
+function getQuizSelectDisplayEle(quiz) {
+  console.log(quiz.name, quiz.finished);
+  const disabled = quiz.finished ? 'disabled' : '';
+  return `<option value="${quiz.id}" ${disabled}>${quiz.name}</option>`;
 }
 
 /******************************************************************************
- *                        Add, Edit, and Delete Users
+ *                           Event listeners
  ******************************************************************************/
 
 document.addEventListener('click', function (event) {
@@ -62,10 +41,6 @@ document.addEventListener('click', function (event) {
     displayScores();
   }
 }, false)
-
-/******************************************************************************
- *                        Add, Edit, and Delete Users
- ******************************************************************************/
 
 function addQuiz() {
   window.location.href = '/addQuiz';

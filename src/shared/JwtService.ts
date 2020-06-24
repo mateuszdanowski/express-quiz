@@ -5,7 +5,7 @@ import {cookieProps} from '@shared/constants';
 
 interface IClientData {
   id: number;
-  role: number;
+  username: string;
 }
 
 export class JwtService {

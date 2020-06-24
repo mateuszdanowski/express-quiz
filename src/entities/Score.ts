@@ -19,16 +19,25 @@ export class Score implements IScore {
 
 
   constructor(
-      id?: number,
+      idOrScore?: number | IScore,
       quizId?: number,
       userId?: number,
       result?: number,
       statistics?: Statistic[],
   ) {
-    this.id = id || -1;
-    this.quizId = quizId || -1;
-    this.userId = userId || -1;
-    this.result = result || -1;
-    this.statistics = statistics || [];
+    if (typeof idOrScore === 'number' || typeof idOrScore === 'undefined') {
+      this.id = idOrScore || -1;
+      this.quizId = quizId || -1;
+      this.userId = userId || -1;
+      this.result = result || -1;
+      this.statistics = statistics || [];
+    } else {
+      this.id = idOrScore.id;
+      this.quizId = idOrScore.quizId;
+      this.userId = idOrScore.userId;
+      this.result = idOrScore.result;
+      this.statistics = idOrScore.statistics;
+    }
   }
+
 }

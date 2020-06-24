@@ -12,11 +12,13 @@ import {
 } from '@shared/constants';
 import {adminMW} from './middleware';
 import {Question} from '@entities/Question';
-
+import {IQuizWithFinishInfo} from '@entities/QuizWithFinishInfo';
+import ScoreDao from '@daos/Score/ScoreDao';
 
 // Init shared
 const router = Router().use(adminMW);
 const quizDao = new QuizDao();
+const scoreDao = new ScoreDao();
 
 
 /******************************************************************************
@@ -26,6 +28,26 @@ const quizDao = new QuizDao();
 router.get('/all', async (req: Request, res: Response) => {
   const quizzes = await quizDao.getAll();
   return res.status(OK).json({quizzes});
+});
+
+
+/******************************************************************************
+ *      Get All Available Quizzes For User - "GET /api/quizzes/allForUser"
+ ******************************************************************************/
+
+router.get('/allForUser', async (req: Request, res: Response) => {
+  const userId = req.session!.userId;
+  const quizzes = await quizDao.getAll();
+  const quizzesForUser = await Promise.all(
+      quizzes.map(async quiz => {
+        const quizWithFinishInfo = quiz as IQuizWithFinishInfo;
+        const scoresForQuizAndUser = await scoreDao.getForQuizAndUser(quiz.id, userId);
+        quizWithFinishInfo.finished = scoresForQuizAndUser.length > 0;
+        return quizWithFinishInfo;
+      })
+  );
+
+  return res.status(OK).json({quizzesForUser});
 });
 
 

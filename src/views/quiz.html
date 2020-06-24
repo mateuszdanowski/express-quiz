@@ -21,19 +21,14 @@
   </div>
 </div>
 
-<!-- Display Users -->
-<div class="users-column">
-  <div class="column-header">Users:</div>
-  <div id="all-users-anchor"></div>
-</div>
-
-<!-- Display Quizzes -->
-<div class="users-column">
-  <div class="column-header">Quizzes:</div>
-  <div id="all-quizzes-anchor"></div>
-  <div>
-    <button id="display-scores-btn">Your scores</button>
-  </div>
+<div id="quiz-choice">
+  <form action="/play" method="get">
+    <label>
+      Wybierz:
+      <select id="quizzes-list-anchor" name="quiz-select" required></select>
+      <button type="submit" id="start-btn">Rozpocznij quiz!</button>
+    </label>
+  </form>
 </div>
 
 </body>

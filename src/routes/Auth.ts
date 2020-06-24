@@ -39,12 +39,13 @@ router.post('/login', async (req: Request, res: Response) => {
     });
   }
   // Setup session
+  req.session!.userId = user.id;
   req.session!.username = user.username;
 
   // Setup Admin Cookie
   const jwt = await jwtService.getJwt({
     id: user.id,
-    role: 0,
+    username: user.username,
   });
   const {key, options} = cookieProps;
   res.cookie(key, jwt, options);
