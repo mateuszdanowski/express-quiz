@@ -32,6 +32,26 @@ router.get('/all', async (req: Request, res: Response) => {
 
 
 /******************************************************************************
+ *         Get Current Quiz For User - "GET /api/quizzes/oneForUser"
+ ******************************************************************************/
+
+router.get('/oneForUser', async (req: Request, res: Response) => {
+  const quiz = await quizDao.getOneById(req.session!.quizId);
+  // const quizzes = await quizDao.getAll();
+  // const quizzesForUser = await Promise.all(
+  //     quizzes.map(async quiz => {
+  //       const quizWithFinishInfo = quiz as IQuizWithFinishInfo;
+  //       const scoresForQuizAndUser = await scoreDao.getForQuizAndUser(quiz.id, userId);
+  //       quizWithFinishInfo.finished = scoresForQuizAndUser.length > 0;
+  //       return quizWithFinishInfo;
+  //     })
+  // );
+
+  return res.status(OK).json({quiz});
+});
+
+
+/******************************************************************************
  *      Get All Available Quizzes For User - "GET /api/quizzes/allForUser"
  ******************************************************************************/
 

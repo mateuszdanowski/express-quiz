@@ -29,7 +29,7 @@ function getQuizSelectDisplayEle(quiz) {
  ******************************************************************************/
 
 document.addEventListener('click', function (event) {
-  event.preventDefault();
+  // event.preventDefault();
   const ele = event.target;
   if (ele.matches('#add-quiz-btn')) {
     addQuiz();

@@ -4,6 +4,7 @@ import {DbDao} from '../Db/DbDao';
 
 export interface IQuizDao {
   getOne: (name: string) => Promise<IQuiz | null>;
+  getOneById: (id: number) => Promise<IQuiz | null>;
   getAll: () => Promise<IQuiz[]>;
   add: (name: string, questions: string) => Promise<void>;
   update: (quiz: IQuiz) => Promise<void>;
@@ -20,6 +21,23 @@ class QuizDao extends DbDao implements IQuizDao {
     try {
       const stmt = 'SELECT * FROM quizzes WHERE name = ?';
       const quiz = await super.promisifiedGet(stmt, [name]);
+      return quiz !== undefined ? quiz : null;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+
+  /**
+   * @param id
+   */
+  public async getOneById(id: number): Promise<IQuiz | null> {
+    try {
+      const stmt = 'SELECT * FROM quizzes WHERE id = ?';
+      const quiz = await super.promisifiedGet(stmt, [id]);
+      if (quiz !== undefined) {
+        quiz.questions = JSON.parse(quiz.questions);
+      }
       return quiz !== undefined ? quiz : null;
     } catch (err) {
       throw err;

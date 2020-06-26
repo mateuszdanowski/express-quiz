@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/play.css"/>
+</head>
+<body>
+
+<div id="quiz">
+  <div id="question-info" class="title header"></div>
+  <div class="container">
+    <div class="container-header">
+      <div id="penalty-info" class="penalty">
+        Zastanów się! Za niepoprawną odpowiedź otrzymasz aż <span id="penalty"></span> kary!
+      </div>
+      <div class="timer">
+        Timer: <span id="elapsed-time"></span>
+      </div>
+    </div>
+    <hr>
+    <div id="question-container">
+      <div id="question" class="title">Pytanie</div>
+      <div class="answer-wrapper">
+        <label for="answer" class="statement">
+          Odpowiedź:
+        </label>
+        <input type="number" id="answer" name="answer">
+      </div>
+    </div>
+    <div class="controls">
+      <button id="prev-button" class="button control-button">Poprzednie pytanie</button>
+      <button id="finish-button" class="button control-button">Stop</button>
+      <button id="cancel-button" class="button control-button">Anuluj</button>
+      <button id="next-button" class="button control-button">Następne pytanie</button>
+    </div>
+  </div>
+</div>
+</body>
+<script src="scripts/http.js"></script>
+<script src="scripts/play.js"></script>
+</html>

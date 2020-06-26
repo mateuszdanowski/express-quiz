@@ -1,0 +1,180 @@
+body {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(71, 71, 204);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  max-width: 740px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px 0;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+.header {
+  font-size: 3rem;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.button {
+  background-color: rgb(82, 138, 243);
+  border: 2px solid rgb(57, 99, 177);
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+.button:hover {
+  border-color: black;
+}
+
+.control-button {
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+.selected {
+  background-color: green;
+  border-color: black;
+  cursor: default;
+}
+
+.inactive {
+  background-color: grey;
+  cursor: default;
+  opacity: 0.2;
+}
+
+.inactive:hover {
+  border-color: rgb(57, 99, 177);
+}
+
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px;
+}
+
+.timer {
+  border: 2px solid black;
+  padding: 5px;
+  background-color: lightyellow;
+  border-radius: 3px;
+}
+
+.penalty {
+  font-style: italic;
+  padding: 7px 0;
+}
+
+#cancel-button {
+  background-color: lightcoral;
+}
+
+.finish-active {
+  background-color: lightgreen;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-field {
+  margin: 10px 0;
+  width: 50%;
+  padding: 10px;
+  font-size: 1.5rem;
+  border: none;
+  box-shadow: 0 0 2px 0 black;
+}
+.paragraph-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.paragraph {
+  text-align: center;
+}
+
+.stat {
+  margin: 5px 0;
+}
+
+.highlighted {
+  font-style: bold;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 767px) {
+  .button-grid {
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  #introduction {
+    display: none;
+  }
+
+  #home-page {
+    width: 75%;
+  }
+
+  #question-info {
+    font-size: 2.5rem;
+  }
+}

@@ -14,7 +14,8 @@ import 'express-async-errors';
 import BaseRouter from './routes';
 import logger from '@shared/Logger';
 import {cookieProps} from '@shared/constants';
-
+import QuizDao from '@daos/Quiz/QuizDao';
+import ScoreDao from '@daos/Score/ScoreDao';
 
 // Init express
 const app = express();
@@ -61,6 +62,9 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
  *                              Serve front-end content
  ***********************************************************************************/
 
+const quizDao = new QuizDao();
+const scoreDao = new ScoreDao();
+
 const viewsDir = path.join(__dirname, 'views');
 app.set('views', viewsDir);
 const staticDir = path.join(__dirname, 'public');
@@ -103,6 +107,28 @@ app.get('/scores', (req: Request, res: Response) => {
     res.redirect('/');
   } else {
     res.sendFile('scores.html', {root: viewsDir});
+  }
+});
+
+app.get('/play', async (req: Request, res: Response) => {
+  const jwt = req.signedCookies[cookieProps.key];
+  if (!jwt) {
+    res.redirect('/');
+  } else {
+    // console.log(req.session);
+    const userId = req.session!.userId;
+    const quizId = Number(req.query.quizId);
+    // console.log(quizId, userId);
+    const scores = await scoreDao.getForQuizAndUser(quizId, userId);
+    // console.log(scores);
+    const isFinished = (await scoreDao.getForQuizAndUser(quizId, userId)).length > 0;
+    // console.log(isFinished);
+    if (isFinished) {
+      res.redirect('/quiz');
+    }
+    req.session!.quizId = quizId;
+    const quiz = await quizDao.getOneById(quizId);
+    res.sendFile('play.html', {root: viewsDir, quiz});
   }
 });
 
