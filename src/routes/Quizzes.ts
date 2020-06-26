@@ -37,17 +37,7 @@ router.get('/all', async (req: Request, res: Response) => {
 
 router.get('/oneForUser', async (req: Request, res: Response) => {
   const quiz = await quizDao.getOneById(req.session!.quizId);
-  // const quizzes = await quizDao.getAll();
-  // const quizzesForUser = await Promise.all(
-  //     quizzes.map(async quiz => {
-  //       const quizWithFinishInfo = quiz as IQuizWithFinishInfo;
-  //       const scoresForQuizAndUser = await scoreDao.getForQuizAndUser(quiz.id, userId);
-  //       quizWithFinishInfo.finished = scoresForQuizAndUser.length > 0;
-  //       return quizWithFinishInfo;
-  //     })
-  // );
-
-  return res.status(OK).json({quiz});
+  return res.status(OK).json({quiz, sendDataTime: new Date().getTime()});
 });
 
 
@@ -97,7 +87,7 @@ router.post('/add', async (req: Request, res: Response) => {
     // console.log(questions);
     for (const question of questions) {
       // console.log(question);
-      for (const field of ['id', 'statement', 'answer', 'penalty']) {
+      for (const field of ['statement', 'answer', 'penalty']) {
         if (!(field in question)) {
           // console.log(field);
           return res.status(BAD_REQUEST).json({
@@ -105,27 +95,11 @@ router.post('/add', async (req: Request, res: Response) => {
           });
         }
       }
-      ids.push(question.id);
       penalties.push(question.penalty);
     }
-    const hasDuplicates = (list: number[]) => {
-      return (new Set(list)).size !== list.length;
-    };
-    const isMinEqualTo = (list: number[], equalTo: number) => {
-      return Math.min(...list) === equalTo;
-    };
-    const isMaxEqualTo = (list: number[], equalTo: number) => {
-      return Math.max(...list) === equalTo;
-    };
     const isMinBelowZero = (list: number[]) => {
       return Math.min(...list) < 0;
     };
-
-    if (hasDuplicates(ids) || !(isMinEqualTo(ids, 1) && isMaxEqualTo(ids, questions.length))) {
-      return res.status(BAD_REQUEST).json({
-        error: invalidQuestionIdsErr,
-      });
-    }
     if (isMinBelowZero(penalties)) {
       return res.status(BAD_REQUEST).json({
         error: invalidPenaltyValueErr,

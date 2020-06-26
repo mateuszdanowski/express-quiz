@@ -18,7 +18,7 @@ export class Statistic implements IStatistic {
       usersAnswer?: number,
       timeSpent?: number,
   ) {
-    this.question = question || {id: -1, statement: '', answer: '', penalty: -1};
+    this.question = question || {statement: '', answer: '', penalty: -1};
     this.usersAnswer = usersAnswer || -1;
     this.timeSpent = timeSpent || -1;
   }

@@ -2,6 +2,7 @@ class Timer {
 
   start() {
     this.startTime = new Date().getTime();
+    this.elapsedTime = 0;
   }
 
   stop() {
@@ -20,13 +21,6 @@ class Timer {
 
 let questionTimers = [];
 
-// function clearQuestionTimers() {
-//   questionTimers.forEach(timer => {
-//     timer.elapsedTime = 0;
-//     timer.startTime = 0;
-//   });
-// }
-
 let quizData;
 let questions;
 let usersAnswers = [];
@@ -42,6 +36,7 @@ function fetchDataAndStartQuiz() {
   .then(response => response.json())
   .then((response) => {
     console.log(response);
+    receivedDataTime = response.sendDataTime;
     quizData = response.quiz;
     questions = quizData.questions;
     startQuiz();
@@ -66,13 +61,10 @@ function startQuiz() {
 
   quizTimer = setInterval('mainTimerFunc()', 1000);
 
-  console.log(questions);
-
   questionTimers = [];
   for (let i = 0; i < questions.length; i++) {
     questionTimers.push(new Timer());
   }
-
   displayCurrentQuestion();
 }
 
@@ -181,8 +173,7 @@ function finishQuiz() {
   if (allAnswered) {
     clearInterval(quizTimer);
     questionTimers[currentQuestionNumber].stop();
-    window.location.href = '/quiz';
-    // TODO save score and end quiz
+    sendScore();
   }
 }
 
@@ -190,5 +181,30 @@ function cancelQuiz() {
   clearInterval(quizTimer);
   questionTimers[currentQuestionNumber].stop();
   window.location.href = '/quiz';
-  // TODO end quiz
+}
+
+function sendScore() {
+  const timePercentageForEachQuestion = Array(questions.length).fill(0.0);
+  let fullTime = 0;
+  for (let i = 0; i < questions.length; i++) {
+    fullTime += questionTimers[i].getTimeInMs();
+  }
+  for (let i = 0; i < questions.length; i++) {
+    timePercentageForEachQuestion[i] = questionTimers[i].getTimeInMs() / fullTime;
+  }
+  console.log(fullTime);
+
+  const data = {
+    scoreData: {
+      usersAnswers: usersAnswers,
+      timePercentageForEachQuestion: timePercentageForEachQuestion
+    },
+    receivedDataTime: receivedDataTime,
+  };
+  Http.Post('/api/scores/add', data)
+  .then(response => response.json())
+  .then((response) => {
+    console.log(response);
+    window.location.href = '/quiz';
+  });
 }

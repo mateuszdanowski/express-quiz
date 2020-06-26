@@ -6,9 +6,8 @@
     "statistics": [
       {
         "question": {
-          "id": 1,
           "statement": "QUESTION 1",
-          "answer": 123,
+          "answer": "123",
           "penalty": 10
         },
         "usersAnswer": 123,
@@ -16,9 +15,8 @@
       },
       {
         "question": {
-          "id": 2,
           "statement": "QUESTION 2",
-          "answer": 321,
+          "answer": "321",
           "penalty": 10
         },
         "usersAnswer": 123,

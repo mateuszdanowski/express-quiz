@@ -3,15 +3,13 @@
     "name": "quiz1",
     "questions": [
       {
-        "id": 1,
         "statement": "QUESTION 1",
-        "answer": 123,
+        "answer": "123",
         "penalty": 10
       },
       {
-        "id": 2,
         "statement": "QUESTION 2",
-        "answer": 321,
+        "answer": "321",
         "penalty": 10
       }
     ]
@@ -20,27 +18,23 @@
     "name": "quiz2",
     "questions": [
       {
-        "id": 1,
         "statement": "QUESTION 1",
-        "answer": 123213,
+        "answer": "123213",
         "penalty": 1
       },
       {
-        "id": 2,
         "statement": "QUESTION 2",
-        "answer": 323211,
+        "answer": "323211",
         "penalty": 2
       },
       {
-        "id": 3,
         "statement": "QUESTION 3",
-        "answer": 321312,
+        "answer": "321312",
         "penalty": 3
       },
       {
-        "id": 4,
         "statement": "QUESTION 4",
-        "answer": 123213,
+        "answer": "123213",
         "penalty": 4
       }
     ]
