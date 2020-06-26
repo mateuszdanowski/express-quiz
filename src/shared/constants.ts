@@ -10,6 +10,7 @@ export const quizQuestionsFieldMissingErr = 'Some fields are missing in quiz que
 export const invalidQuestionIdsErr = 'Question ids are invalid';
 export const invalidPenaltyValueErr = 'Penalty cannot be below zero';
 export const quizMissingError = 'Quiz with that id is missing';
+export const userNotLoggedInErr = 'User is not logged in';
 
 // Numbers
 export const pwdSaltRounds = 12;

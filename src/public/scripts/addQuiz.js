@@ -11,7 +11,6 @@ document.addEventListener('click', function (event) {
 function addQuiz() {
   const name = document.getElementById('quiz-name-input');
   const questions = document.getElementById('quiz-questions-input');
-  console.log(questions.value);
   const data = {
     quiz: {
       name: name.value,

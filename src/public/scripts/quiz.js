@@ -8,7 +8,6 @@ function displayQuizzesForUser() {
   Http.Get('/api/quizzes/allForUser')
   .then(response => response.json())
   .then((response) => {
-    console.log(response);
     const quizzes = response.quizzesForUser;
     const quizzesListAnchor = document.getElementById('quizzes-list-anchor');
     quizzesListAnchor.innerHTML = '';
@@ -19,7 +18,6 @@ function displayQuizzesForUser() {
 }
 
 function getQuizSelectDisplayEle(quiz) {
-  console.log(quiz.name, quiz.finished);
   const disabled = quiz.finished ? 'disabled' : '';
   return `<option value="${quiz.id}" ${disabled}>${quiz.name}</option>`;
 }
@@ -29,7 +27,6 @@ function getQuizSelectDisplayEle(quiz) {
  ******************************************************************************/
 
 document.addEventListener('click', function (event) {
-  // event.preventDefault();
   const ele = event.target;
   if (ele.matches('#add-quiz-btn')) {
     addQuiz();

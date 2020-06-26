@@ -10,7 +10,7 @@
           "answer": "123",
           "penalty": 10
         },
-        "usersAnswer": 123,
+        "usersAnswer": "123",
         "timeSpent": 10
       },
       {
@@ -19,7 +19,7 @@
           "answer": "321",
           "penalty": 10
         },
-        "usersAnswer": 123,
+        "usersAnswer": "123",
         "timeSpent": 100
       }
     ]

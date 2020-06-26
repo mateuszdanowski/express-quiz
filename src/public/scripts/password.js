@@ -23,7 +23,6 @@ function changePassword() {
   Http.Post('/api/users/update', data)
   .then(response => response.json())
   .then((response) => {
-    console.log(response);
     if (response.error) {
       window.location.href = '/password';
     } else {

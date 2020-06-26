@@ -10,10 +10,6 @@ class Timer {
     this.elapsedTime += currentTime - this.startTime;
   }
 
-  print() {
-    const x = new Date().getTime();
-  }
-
   getTimeInMs() {
     return this.elapsedTime;
   }
@@ -28,6 +24,7 @@ let currentQuestionNumber;
 let questionsAnswered;
 let quizTimer;
 let elapsedTime;
+let receivedDataTime;
 
 fetchDataAndStartQuiz();
 
@@ -35,7 +32,6 @@ function fetchDataAndStartQuiz() {
   Http.Get('/api/quizzes/oneForUser')
   .then(response => response.json())
   .then((response) => {
-    console.log(response);
     receivedDataTime = response.sendDataTime;
     quizData = response.quiz;
     questions = quizData.questions;
@@ -54,8 +50,6 @@ function startQuiz() {
   questionsAnswered = 0;
   elapsedTime = 0;
 
-  // randomize questions
-
   document.getElementById('elapsed-time').innerText = '0s';
   document.getElementById('finish-button').classList.remove('finish-active');
 
@@ -69,7 +63,6 @@ function startQuiz() {
 }
 
 function displayCurrentQuestion() {
-  console.log(currentQuestionNumber);
   const currentQuestion = questions[currentQuestionNumber];
 
   setControls();
@@ -192,7 +185,6 @@ function sendScore() {
   for (let i = 0; i < questions.length; i++) {
     timePercentageForEachQuestion[i] = questionTimers[i].getTimeInMs() / fullTime;
   }
-  console.log(fullTime);
 
   const data = {
     scoreData: {
@@ -202,9 +194,7 @@ function sendScore() {
     receivedDataTime: receivedDataTime,
   };
   Http.Post('/api/scores/add', data)
-  .then(response => response.json())
-  .then((response) => {
-    console.log(response);
+  .then(() => {
     window.location.href = '/quiz';
   });
 }

@@ -3,7 +3,7 @@ import {BAD_REQUEST, CREATED, OK} from 'http-status-codes';
 
 import ScoreDao from '@daos/Score/ScoreDao';
 import QuizDao from '@daos/Quiz/QuizDao';
-import {paramMissingError, quizMissingError} from '@shared/constants';
+import {paramMissingError, quizMissingError, userNotLoggedInErr} from '@shared/constants';
 import {adminMW} from './middleware';
 import {Score} from '@entities/Score';
 import {Statistic} from '@entities/Statistic';
@@ -19,6 +19,22 @@ const quizDao = new QuizDao();
 
 router.get('/all', async (req: Request, res: Response) => {
   const scores = await scoreDao.getAll();
+  return res.status(OK).json({scores});
+});
+
+
+/******************************************************************************
+ *                Get User`s scores - "GET /api/scores/getUsers"
+ ******************************************************************************/
+
+router.get('/allForUser', async (req: Request, res: Response) => {
+  const userId = req.session!.userId;
+  if (!(userId)) {
+    return res.status(BAD_REQUEST).json({
+      error: userNotLoggedInErr,
+    });
+  }
+  const scores = await scoreDao.getAllForUser(userId);
   return res.status(OK).json({scores});
 });
 
@@ -69,7 +85,7 @@ router.post('/add', async (req: Request, res: Response) => {
 
   // Add new score
   await scoreDao.add(score.quizId, score.userId, score.result, JSON.stringify(score.statistics));
-  return res.status(CREATED).json({});
+  return res.status(CREATED).end();
 });
 
 

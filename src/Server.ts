@@ -119,8 +119,6 @@ app.get('/play', async (req: Request, res: Response) => {
     const userId = req.session!.userId;
     const quizId = Number(req.query.quizId);
     // console.log(quizId, userId);
-    const scores = await scoreDao.getForQuizAndUser(quizId, userId);
-    // console.log(scores);
     const isFinished = (await scoreDao.getForQuizAndUser(quizId, userId)).length > 0;
     // console.log(isFinished);
     if (isFinished) {
