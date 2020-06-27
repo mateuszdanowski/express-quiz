@@ -1,4 +1,4 @@
-import {IQuiz} from '@entities/Quiz';
+import {IQuiz} from '../../entities/Quiz';
 import {DbDao} from '../Db/DbDao';
 
 
@@ -7,8 +7,6 @@ export interface IQuizDao {
   getOneById: (id: number) => Promise<IQuiz | null>;
   getAll: () => Promise<IQuiz[]>;
   add: (name: string, questions: string) => Promise<void>;
-  update: (quiz: IQuiz) => Promise<void>;
-  delete: (id: number) => Promise<void>;
 }
 
 class QuizDao extends DbDao implements IQuizDao {
@@ -71,26 +69,6 @@ class QuizDao extends DbDao implements IQuizDao {
     } catch (err) {
       throw err;
     }
-  }
-
-
-  /**
-   *
-   * @param quiz
-   */
-  public async update(quiz: IQuiz): Promise<void> {
-    // TODO
-    return {} as any;
-  }
-
-
-  /**
-   *
-   * @param id
-   */
-  public async delete(id: number): Promise<void> {
-    // TODO
-    return {} as any;
   }
 }
 

@@ -26,18 +26,11 @@ function changePassword() {
     if (response.error) {
       window.location.href = '/password';
     } else {
-      logoutUser();
+      window.location.href = '/logout';
     }
   });
 }
 
 function goBack() {
   window.location.href = '/quiz';
-}
-
-function logoutUser() {
-  Http.Get('/api/auth/logout')
-  .then(() => {
-    window.location.href = '/';
-  })
 }

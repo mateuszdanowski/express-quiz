@@ -1,9 +1,10 @@
-import {IUser} from '@entities/User';
+import {IUser} from '../../entities/User';
 import {DbDao} from '../Db/DbDao';
 
 
 export interface IUserDao {
   getOne: (username: string) => Promise<IUser | null>;
+  getOneById: (id: number) => Promise<IUser | null>;
   getAll: () => Promise<IUser[]>;
   add: (username: string, pwdHash: string) => Promise<void>;
   updatePwd: (username: string, pwdHash: string) => Promise<void>;
@@ -19,6 +20,20 @@ class UserDao extends DbDao implements IUserDao {
     try {
       const stmt = 'SELECT * FROM users WHERE username = ?';
       const user = await super.promisifiedGet(stmt, [username]);
+      return user !== undefined ? user : null;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+
+  /**
+   * @param id
+   */
+  public async getOneById(id: number): Promise<IUser | null> {
+    try {
+      const stmt = 'SELECT * FROM users WHERE id = ?';
+      const user = await super.promisifiedGet(stmt, [id]);
       return user !== undefined ? user : null;
     } catch (err) {
       throw err;

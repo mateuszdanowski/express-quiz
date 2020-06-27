@@ -1,4 +1,4 @@
-import {Statistic} from '@entities/Statistic';
+import {Statistic} from '../entities/Statistic';
 
 
 export interface IScore {

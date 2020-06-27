@@ -80,6 +80,7 @@ function setControls() {
   prevButton.classList.remove('inactive');
   nextButton.classList.remove('inactive');
   finishButton.classList.remove('inactive');
+  finishButton.removeAttribute('disabled');
 
   if (currentQuestionNumber === 0) {
     prevButton.classList.add('inactive');
@@ -90,6 +91,7 @@ function setControls() {
   const allAnswered = usersAnswers.find(answer => answer === '') === undefined;
   if (!allAnswered) {
     finishButton.classList.add('inactive');
+    finishButton.setAttribute('disabled', '');
   }
 }
 
@@ -99,9 +101,11 @@ function setAnswerInput() {
 }
 
 function displayQuestionInfo() {
-  const questionInfoElem = document.getElementById('question-info');
-  questionInfoElem.innerHTML = `Pytanie ${currentQuestionNumber
-  + 1} z ${questions.length}`;
+  const questionNumber = document.getElementById('question-number');
+  const questionCount = document.getElementById('question-count');
+
+  questionNumber.innerHTML = `${currentQuestionNumber + 1}`;
+  questionCount.innerHTML = `${questions.length}`;
 }
 
 function displayPenaltyForQuestion(question) {
@@ -142,9 +146,11 @@ document.getElementById('answer').addEventListener('change', function (event) {
   if (allAnswered) {
     finishButton.classList.remove('inactive');
     finishButton.classList.add('finish-active');
+    finishButton.removeAttribute('disabled');
   } else {
     finishButton.classList.remove('finish-active');
     finishButton.classList.add('inactive');
+    finishButton.setAttribute('disabled', '');
   }
 }, false)
 
@@ -183,7 +189,8 @@ function sendScore() {
     fullTime += questionTimers[i].getTimeInMs();
   }
   for (let i = 0; i < questions.length; i++) {
-    timePercentageForEachQuestion[i] = questionTimers[i].getTimeInMs() / fullTime;
+    timePercentageForEachQuestion[i] = questionTimers[i].getTimeInMs()
+        / fullTime;
   }
 
   const data = {

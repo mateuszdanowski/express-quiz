@@ -32,8 +32,6 @@ document.addEventListener('click', function (event) {
     addQuiz();
   } else if (ele.matches('#change-pwd-btn')) {
     changePassword();
-  } else if (ele.matches('#logout-btn')) {
-    logoutUser();
   } else if (ele.matches('#display-scores-btn')) {
     displayScores();
   }
@@ -45,13 +43,6 @@ function addQuiz() {
 
 function changePassword() {
   window.location.href = '/password';
-}
-
-function logoutUser() {
-  Http.Get('/api/auth/logout')
-  .then(() => {
-    window.location.href = '/';
-  })
 }
 
 function displayScores() {

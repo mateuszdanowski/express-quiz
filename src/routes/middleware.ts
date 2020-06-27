@@ -1,17 +1,17 @@
 import {Request, Response, NextFunction} from 'express';
-import {UNAUTHORIZED} from 'http-status-codes';
 
-import {cookieProps} from '@shared/constants';
-import {JwtService} from '@shared/JwtService';
+function checkAuth(req: Request, res: Response, next: NextFunction) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/');
+}
 
-
-const jwtService = new JwtService();
-
-
-// Middleware to verify if user is an admin
-export const adminMW = async (req: Request, res: Response, next: NextFunction) => {
+function checkNotAuth(req: Request, res: Response, next: NextFunction) {
+  if (req.isAuthenticated()) {
+    return res.redirect('/quiz');
+  }
   next();
-  // return res.status(UNAUTHORIZED).json({
-  //   error: 'JWT not present in signed cookie.'
-  // });
-};
+}
+
+export {checkAuth, checkNotAuth};

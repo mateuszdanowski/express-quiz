@@ -20,10 +20,7 @@ function displayStatsTemplate() {
     });
   })
   .then(() => {
-    displayScoresForUser();
-  })
-  .then(() => {
-    displayHighScoresAndAvgTimes();
+    displayScoresForUser().then(resolve => displayHighScoresAndAvgTimes());
   });
 }
 

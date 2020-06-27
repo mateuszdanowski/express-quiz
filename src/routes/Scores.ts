@@ -1,15 +1,15 @@
 import {Request, Response, Router} from 'express';
 import {BAD_REQUEST, CREATED, OK} from 'http-status-codes';
 
-import ScoreDao from '@daos/Score/ScoreDao';
-import QuizDao from '@daos/Quiz/QuizDao';
-import {paramMissingError, quizMissingError, userNotLoggedInErr} from '@shared/constants';
-import {adminMW} from './middleware';
-import {Score} from '@entities/Score';
-import {Statistic} from '@entities/Statistic';
+import ScoreDao from '../daos/Score/ScoreDao';
+import QuizDao from '../daos/Quiz/QuizDao';
+import {paramMissingError, quizMissingError, userNotLoggedInErr} from '../shared/constants';
+import {checkAuth} from './middleware';
+import {Score} from '../entities/Score';
+import {Statistic} from '../entities/Statistic';
 
 // Init shared
-const router = Router().use(adminMW);
+const router = Router().use(checkAuth);
 const scoreDao = new ScoreDao();
 const quizDao = new QuizDao();
 
@@ -28,8 +28,8 @@ router.get('/all', async (req: Request, res: Response) => {
  ******************************************************************************/
 
 router.get('/allForUser', async (req: Request, res: Response) => {
-  const userId = req.session!.userId;
-  if (!(userId)) {
+  const userId = req.session!.passport.user;
+  if (!userId) {
     return res.status(BAD_REQUEST).json({
       error: userNotLoggedInErr,
     });
@@ -56,7 +56,7 @@ router.post('/add', async (req: Request, res: Response) => {
 
   const score = new Score();
   score.quizId = req.session!.quizId;
-  score.userId = req.session!.userId;
+  score.userId = req.session!.passport.user;
 
   const quiz = await quizDao.getOneById(score.quizId);
   if (!quiz) {

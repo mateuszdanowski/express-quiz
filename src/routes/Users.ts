@@ -1,14 +1,13 @@
 import {Request, Response, Router} from 'express';
 import {BAD_REQUEST, OK} from 'http-status-codes';
 
-import UserDao from '@daos/User/UserDao';
-import {invalidPasswordErr, paramMissingError, passwordsDoNotMatchErr, userNotFoundErr} from '@shared/constants';
-import {adminMW} from './middleware';
-import {comparePass, hashPwd} from '@shared/functions';
+import UserDao from '../daos/User/UserDao';
+import {invalidPasswordErr, paramMissingError, passwordsDoNotMatchErr, userNotFoundErr} from '../shared/constants';
+import {comparePass, hashPwd} from '../shared/functions';
 
 
 // Init shared
-const router = Router().use(adminMW);
+const router = Router();
 const userDao = new UserDao();
 
 
@@ -40,11 +39,10 @@ router.post('/update', async (req: Request, res: Response) => {
       error: passwordsDoNotMatchErr,
     });
   }
-  // Fetch username of user
-  const username = req.session!.username;
-
+  // Fetch user's id
+  const userId = req.session!.passport.user;
   // Fetch user
-  const user = await userDao.getOne(username);
+  const user = await userDao.getOneById(userId);
   if (!user) {
     return res.status(BAD_REQUEST).json({
       error: userNotFoundErr,
@@ -57,7 +55,7 @@ router.post('/update', async (req: Request, res: Response) => {
     });
   }
   // Update password
-  await userDao.updatePwd(username, hashPwd(passwordUpdateData.newPass));
+  await userDao.updatePwd(user.username, hashPwd(passwordUpdateData.newPass));
   return res.status(OK).json({});
 });
 

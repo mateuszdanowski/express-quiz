@@ -1,4 +1,4 @@
-import {IScore} from '@entities/Score';
+import {IScore} from '../../entities/Score';
 import {DbDao} from '../Db/DbDao';
 
 
@@ -8,8 +8,6 @@ export interface IScoreDao {
   getAllForUser: (userId: number) => Promise<IScore[]>;
   getAll: () => Promise<IScore[]>;
   add: (quizId: number, userId: number, result: number, statistics: string) => Promise<void>;
-  update: (score: IScore) => Promise<void>;
-  delete: (id: number) => Promise<void>;
 }
 
 class ScoreDao extends DbDao implements IScoreDao {
@@ -86,26 +84,6 @@ class ScoreDao extends DbDao implements IScoreDao {
     } catch (err) {
       throw err;
     }
-  }
-
-
-  /**
-   *
-   * @param score
-   */
-  public async update(score: IScore): Promise<void> {
-    // TODO
-    return {} as any;
-  }
-
-
-  /**
-   *
-   * @param id
-   */
-  public async delete(id: number): Promise<void> {
-    // TODO
-    return {} as any;
   }
 }
 

@@ -6,7 +6,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "module": "commonjs",
-    "outDir": "dist",
+    "outDir": "dist/src",
     "removeComments": true,
     "sourceMap": true,
     "strict": true,
@@ -27,7 +27,8 @@
       ]
     },
     "types": [
-      "node"
+      "node",
+      "mocha"
     ],
     "typeRoots": [
       "node_modules/@types"
@@ -35,7 +36,8 @@
   },
   "include": [
     "src/**/*.ts",
-    "spec/**/*.ts"
+    "spec/**/*.ts",
+    "node_modules/@types/jasmine/index.d.ts"
   ],
   "exclude": [
     "src/public/"

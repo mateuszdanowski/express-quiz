@@ -1,22 +1,21 @@
 import {Request, Response, Router} from 'express';
 import {BAD_REQUEST, CREATED, OK} from 'http-status-codes';
 
-import QuizDao from '@daos/Quiz/QuizDao';
+import QuizDao from '../daos/Quiz/QuizDao';
 import {
   invalidJson,
   paramMissingError,
   quizQuestionsFieldMissingErr,
   quizQuestionsLengthErr,
-  invalidQuestionIdsErr,
   invalidPenaltyValueErr
-} from '@shared/constants';
-import {adminMW} from './middleware';
-import {Question} from '@entities/Question';
-import {IQuizWithFinishInfo} from '@entities/QuizWithFinishInfo';
-import ScoreDao from '@daos/Score/ScoreDao';
+} from '../shared/constants';
+import {checkAuth} from './middleware';
+import {Question} from '../entities/Question';
+import {IQuizWithFinishInfo} from '../entities/QuizWithFinishInfo';
+import ScoreDao from '../daos/Score/ScoreDao';
 
 // Init shared
-const router = Router().use(adminMW);
+const router = Router().use(checkAuth);
 const quizDao = new QuizDao();
 const scoreDao = new ScoreDao();
 
@@ -46,7 +45,7 @@ router.get('/oneForUser', async (req: Request, res: Response) => {
  ******************************************************************************/
 
 router.get('/allForUser', async (req: Request, res: Response) => {
-  const userId = req.session!.userId;
+  const userId = req.session!.passport.user;
   const quizzes = await quizDao.getAll();
   const quizzesForUser = await Promise.all(
       quizzes.map(async quiz => {
@@ -82,14 +81,10 @@ router.post('/add', async (req: Request, res: Response) => {
         error: quizQuestionsLengthErr,
       });
     }
-    const ids: number[] = [];
     const penalties: number[] = [];
-    // console.log(questions);
     for (const question of questions) {
-      // console.log(question);
       for (const field of ['statement', 'answer', 'penalty']) {
         if (!(field in question)) {
-          // console.log(field);
           return res.status(BAD_REQUEST).json({
             error: quizQuestionsFieldMissingErr,
           });
@@ -105,14 +100,12 @@ router.post('/add', async (req: Request, res: Response) => {
         error: invalidPenaltyValueErr,
       });
     }
-
     quiz.questions = JSON.stringify(questions);
   } catch (err) {
     return res.status(BAD_REQUEST).json({
       error: invalidJson,
     });
   }
-
   // Add new quiz
   await quizDao.add(quiz.name, quiz.questions);
   return res.status(CREATED).json({});

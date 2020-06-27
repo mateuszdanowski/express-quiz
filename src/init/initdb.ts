@@ -7,8 +7,8 @@ import QuizDao from '../daos/Quiz/QuizDao';
 import ScoreDao from '../daos/Score/ScoreDao';
 
 import {hashPwd} from '../shared/functions';
-import {Statistic} from '@entities/Statistic';
-import {Question} from '@entities/Question';
+import {Statistic} from '../entities/Statistic';
+import {Question} from '../entities/Question';
 
 const DB_PATH = './database';
 const QUIZZES_PATH = './src/init/quizzes.json';
