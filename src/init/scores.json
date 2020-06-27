@@ -2,22 +2,22 @@
   {
     "quizId": 1,
     "userId": 1,
-    "result": 20,
+    "result": 180,
     "statistics": [
       {
         "question": {
-          "statement": "QUESTION 1",
-          "answer": "123",
-          "penalty": 10
+          "statement": "Ile to 2+2?",
+          "answer": "4",
+          "penalty": 30
         },
         "usersAnswer": "123",
         "timeSpent": 10
       },
       {
         "question": {
-          "statement": "QUESTION 2",
-          "answer": "321",
-          "penalty": 10
+          "statement": "Ile wynosi 10*10?",
+          "answer": "1000",
+          "penalty": 40
         },
         "usersAnswer": "123",
         "timeSpent": 100

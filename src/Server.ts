@@ -76,10 +76,10 @@ app.post('/login', checkNotAuth, passport.authenticate('local', {
 }));
 
 app.get('/logout', checkAuth, (req: Request, res: Response) => {
-  res.clearCookie('connect.sid');
-  req.session!.destroy(() => {
+  req!.session!.destroy(() => {
+    req.signedCookies['connect.sid'] = '';
     req.logOut();
-    res.redirect('/');
+    return res.redirect('/');
   });
 });
 

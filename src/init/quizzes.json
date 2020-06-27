@@ -1,41 +1,41 @@
 [
   {
-    "name": "quiz1",
+    "name": "Quiz Matematyczny",
     "questions": [
       {
-        "statement": "QUESTION 1",
-        "answer": "123",
-        "penalty": 10
+        "statement": "Ile to 2+2?",
+        "answer": "4",
+        "penalty": 30
       },
       {
-        "statement": "QUESTION 2",
-        "answer": "321",
-        "penalty": 10
+        "statement": "Ile wynosi 10*10?",
+        "answer": "100",
+        "penalty": 40
       }
     ]
   },
   {
-    "name": "quiz2",
+    "name": "Quiz historyczny",
     "questions": [
       {
-        "statement": "QUESTION 1",
-        "answer": "123213",
-        "penalty": 1
+        "statement": "W którym roku odbyła się bitwa pod Grunwaldem?",
+        "answer": "1410",
+        "penalty": 20
       },
       {
-        "statement": "QUESTION 2",
-        "answer": "323211",
-        "penalty": 2
+        "statement": "W którym roku uchwalono konstytucję 3 Maja?",
+        "answer": "1791",
+        "penalty": 40
       },
       {
-        "statement": "QUESTION 3",
-        "answer": "321312",
-        "penalty": 3
+        "statement": "W którym roku wybuchło Powstanie Warszawskie?",
+        "answer": "1944",
+        "penalty": 38
       },
       {
-        "statement": "QUESTION 4",
-        "answer": "123213",
-        "penalty": 4
+        "statement": "W którym roku dokonano pierwszego rozbioru Polski?",
+        "answer": "1772",
+        "penalty": 31
       }
     ]
   }

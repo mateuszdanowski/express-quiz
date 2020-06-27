@@ -2,10 +2,11 @@
  *                          Fetch and display scores
  ******************************************************************************/
 
+
 displayStatsTemplate();
 
-function displayStatsTemplate() {
-  Http.Get('/api/quizzes/allForUser')
+async function displayStatsTemplate() {
+  await Http.Get('/api/quizzes/allForUser')
   .then(response => response.json())
   .then((response) => {
     const allQuizzes = response.quizzesForUser;
@@ -18,11 +19,9 @@ function displayStatsTemplate() {
         allStatsAnchor.innerHTML += getStatsDisplayEle(quiz);
       }
     });
-  })
-  .then(() => {
     displayScoresForUser();
-    displayHighScoresAndAvgTimes()
   });
+  displayHighScoresAndAvgTimes();
 }
 
 function getStatsDisplayEle(quiz) {

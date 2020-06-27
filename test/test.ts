@@ -106,9 +106,6 @@ describe('Quiz tests', async function () {
     await changePassword('user2', '123');
 
     await driver.manage().addCookie({name: sessionCookie.name, value: sessionCookie.value});
-
-    // await delay(1000);
-    await driver.get(QUIZ_URL);
     logged = await loggedIn();
     // tslint:disable-next-line:no-unused-expression
     expect(logged).to.be.false;
