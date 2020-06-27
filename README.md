@@ -22,14 +22,14 @@ W polu 'pytania' należy wkleić listę pytań zgodną z formatem:
 ```json
 [
   {
-    "statement": string,
-    "answer": string,
-    "penalty": number,
+    "statement": "Pytanie1",
+    "answer": "Odpowiedź1",
+    "penalty": 123
   },
   {
-    "statement": string,
-    "answer": string,
-    "penalty": number,
+    "statement": "Pytanie2",
+    "answer": "Odpowiedź2",
+    "penalty": 123
   },
   ...
 ]
