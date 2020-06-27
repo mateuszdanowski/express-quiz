@@ -20,7 +20,8 @@ function displayStatsTemplate() {
     });
   })
   .then(() => {
-    displayScoresForUser().then(resolve => displayHighScoresAndAvgTimes());
+    displayScoresForUser();
+    displayHighScoresAndAvgTimes()
   });
 }
 
@@ -28,7 +29,7 @@ function getStatsDisplayEle(quiz) {
   return `<div id="data-quiz-id-${quiz.id}" class="stats-display-ele">
             <h1>${quiz.name}</h1>
             <div class="high-scores">
-              TOP 5 scores!
+              TOP 5 wyników
               <ol id="scores-for-quiz-id-${quiz.id}"></ol>
             </div>
             <h3>
@@ -90,17 +91,17 @@ function createFeedback(score) {
 
 function createFeedbackForQuestion(score, idx) {
   return `<li>
-            Pytanie nr ${idx}:
-            ${score.statistics[idx].question.statement}
+            Pytanie nr ${idx + 1}:
+            ${score.statistics[idx].question.statement}<br>
             Twoja odpowiedź:
-            ${score.statistics[idx].usersAnswer}
+            ${score.statistics[idx].usersAnswer}<br>
             Poprawna odpowiedź:
-            ${score.statistics[idx].question.answer}
+            ${score.statistics[idx].question.answer}<br>
             Średni czas:
-            <span id="avg-time-for-quiz-id-${score.quizId}-and-question-${idx}">TODO</span>
+            <span id="avg-time-for-quiz-id-${score.quizId}-and-question-${idx}">0.0</span>s<br>
             Twój czas:
-            ${score.statistics[idx].timeSpent}
-          </li>`
+            ${score.statistics[idx].timeSpent}s<br>
+          </li><hr>`
 }
 
 const highScoresLimit = 5;

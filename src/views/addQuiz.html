@@ -1,27 +1,39 @@
+
+<!--  <div class="header">-->
+<!--    <h1>Dodaj swój własny quiz!</h1>-->
+<!--    <p>Format pytania: <span id="question-format" class="small-text"><br>{<br>"id": number,<br>"statement": string,<br>"answer": number,<br>"penalty": number<br>}</span></p>-->
+<!--  </div>-->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Add Quiz</title>
+  <title>Dodaj quiz</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"/>
   <link rel="stylesheet" type="text/css" href="/stylesheets/addQuiz.css"/>
 </head>
 <body>
-<button id="go-back-btn">Go back</button>
-<div class="content">
-  <div class="header">
-    <h1>Dodaj swój własny quiz!</h1>
-    <p>Format pytania: <span id="question-format" class="small-text"><br>{<br>"id": number,<br>"statement": string,<br>"answer": number,<br>"penalty": number<br>}</span></p>
-  </div>
-  <div class="form">
-    <div class="form-input">
-      <label class="form-label" for="quiz-name-input">Nazwa quizu</label>
-      <input id="quiz-name-input" class="input-area" name="quiz-name-input" type="text" placeholder="Nazwa">
+
+<div id="add-quiz-page">
+  <div class="container">
+    <div id="info" class="title">
+      Dodaj własny quiz!
     </div>
-    <div class="form-input">
-      <label class="form-label" for="quiz-questions-input">Pytania (w formacie tablicy pytań)</label>
-      <textarea id="quiz-questions-input" class="input-area" name="quiz-questions-input" rows="20" cols="40" placeholder="Tablica pytań w formacie JSON"></textarea>
+    <div class="form">
+      <div class="form-input">
+        <label class="form-label" for="quiz-name-input">Nazwa quizu</label>
+        <input id="quiz-name-input" class="input-area" name="quiz-name-input" type="text" placeholder="Nazwa">
+      </div>
+      <div class="form-input">
+        <label class="form-label" for="quiz-questions-input">Pytania (w formacie tablicy pytań)</label>
+        <textarea id="quiz-questions-input" class="input-area" name="quiz-questions-input" rows="20" cols="40" placeholder="Tablica pytań w formacie JSON"></textarea>
+      </div>
+      <div class="controls">
+        <button id="add-quiz-btn" class="button control-button">Add</button>
+        <button id="go-back-btn" class="button control-button">Go back</button>
+      </div>
     </div>
-    <button id="add-quiz-btn" class="form-button">Add</button>
   </div>
 </div>
 </body>

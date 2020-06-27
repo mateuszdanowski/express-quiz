@@ -2,25 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Scores</title>
+  <title>Wyniki</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"/>
   <link rel="stylesheet" type="text/css" href="/stylesheets/scores.css"/>
 </head>
 <body>
 
-<!-- User Panel-->
-<div class="users-column">
-  <div class="column-header">User Panel</div>
-  <div>
-    <button id="go-back-btn">Go Back</button>
+
+<div id="scores-page">
+  <div class="container">
+    <div id="introduction" class="title long-text">
+      Wyniki ukończonych quizów
+    </div>
+    <div class="user-panel button-grid">
+      <button id="go-back-btn" class="button control-button">Powrót</button>
+    </div>
+    <div id="all-stats-anchor" class="scores-list"></div>
   </div>
 </div>
-
-<!-- Display Stats -->
-<div class="users-column">
-  <div class="column-header">Finished quizzes:</div>
-  <div id="all-stats-anchor"></div>
-</div>
-
 </body>
 <script src="scripts/http.js"></script>
 <script src="scripts/scores.js"></script>

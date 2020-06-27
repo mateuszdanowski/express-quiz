@@ -2,38 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Users</title>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/quiz.css"/>
+  <title>Strona główna</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"/>
+<!--  <link rel="stylesheet" type="text/css" href="/stylesheets/quiz.css"/>-->
 </head>
 <body>
 
-<!-- User Panel-->
-<div class="users-column add-user-col">
-  <div class="column-header">User Panel</div>
-  <div>
-    <button id="add-quiz-btn">Add quiz</button>
+<div id="home-page">
+  <div class="logo">
+    <img src="/images/quiz.png">
   </div>
-  <div>
-    <button id="display-scores-btn">Display scores</button>
-  </div>
-  <div>
-    <button id="change-pwd-btn">Change password</button>
-  </div>
-  <div>
-    <a href="/logout" id="logout-btn">Logout</a>
+  <div class="container">
+    <div id="introduction" class="title long-text">
+      To jest quiz na zlecenie mimuw.
+      Aby móc zakończyć quiz, musisz odpowiedzieć na wszystkie pytania.
+      W każdej chwili możesz anulować, wynik nie zostanie wtedy zapisany.
+      Powodzenia!
+    </div>
+    <div class="user-panel button-grid">
+      <a href="/logout" id="logout-btn" class="button control-button">Wyloguj się</a>
+      <button id="change-pwd-btn" class="button control-button">Zmień hasło</button>
+      <button id="add-quiz-btn" class="button control-button">Dodaj własny quiz</button>
+      <button id="display-scores-btn" class="button control-button">Pokaż wyniki</button>
+    </div>
+    <div id="quiz-choice" class="form">
+      <form action="/play" method="get">
+        <label>
+          Wybierz quiz z listy dostępnych:
+          <select id="quizzes-list-anchor" name="quizId" required></select>
+          <button type="submit" id="start-btn" class="button control-button">Rozpocznij quiz!</button>
+        </label>
+      </form>
+    </div>
   </div>
 </div>
-
-<div id="quiz-choice">
-  <form action="/play" method="get">
-    <label>
-      Wybierz:
-      <select id="quizzes-list-anchor" name="quizId" required></select>
-      <button type="submit" id="start-btn">Rozpocznij quiz!</button>
-    </label>
-  </form>
-</div>
-
 </body>
 <script src="scripts/http.js"></script>
 <script src="scripts/quiz.js"></script>
