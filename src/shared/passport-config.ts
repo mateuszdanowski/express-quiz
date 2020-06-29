@@ -20,7 +20,6 @@ function initialize(passport: passport.PassportStatic) {
     }
 
     try {
-      console.log(password, user.pwdHash);
       if (await bcrypt.compare(password, user.pwdHash)) {
         return done(null, user);
       } else {
