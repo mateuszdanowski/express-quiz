@@ -29,7 +29,7 @@ function addQuiz() {
     .then(response => response.json())
     .then((response) => {
       if (response.error) {
-        window.location.href = '/addQuiz';
+        printErr(response.error);
       } else {
         goBack();
       }
@@ -39,4 +39,9 @@ function addQuiz() {
 
 function goBack() {
   window.location.href = '/quiz';
+}
+
+function printErr(err) {
+  alert(err);
+  console.log(err);
 }
