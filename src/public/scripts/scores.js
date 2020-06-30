@@ -99,7 +99,7 @@ function createFeedbackForQuestion(score, idx) {
             Średni czas:
             <span id="avg-time-for-quiz-id-${score.quizId}-and-question-${idx}">0.0</span>s<br>
             Twój czas:
-            ${score.statistics[idx].timeSpent}s<br>
+            <span id="users-time-for-quiz-id-${score.quizId}-and-q-${idx}">${score.statistics[idx].timeSpent}s</span><br>
           </li><hr>`
 }
 

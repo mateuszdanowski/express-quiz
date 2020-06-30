@@ -115,6 +115,93 @@ describe('Quiz tests', async function () {
     // tslint:disable-next-line:no-unused-expression
     expect(logged).to.be.false;
   });
+
+
+  it('App should send answers and statistics back to server', async () => {
+    const loggedIn = async () => {
+      try {
+        await driver.find('#logout-btn');
+      } catch (err) {
+        return false;
+      }
+      return true;
+    };
+    const quizEnabled = async (quizId: number) => {
+      try {
+        await driver.find(`option[value="${quizId}"]`);
+      } catch (err) {
+        return false;
+      }
+      return true;
+    };
+    const quizScoreDisplayed = async (quizId: number) => {
+      try {
+        await driver.find(`#data-quiz-id-${quizId}`);
+      } catch (err) {
+        return false;
+      }
+      return true;
+    };
+    await logIn('user2', 'user2');
+    const logged = await loggedIn();
+    // tslint:disable-next-line:no-unused-expression
+    expect(logged).to.be.true;
+
+    // Check if quizzes loaded properly
+    const quiz1Enabled = await quizEnabled(1);
+    const quiz2Enabled = await quizEnabled(2);
+    const quiz3Enabled = await quizEnabled(3);
+    // tslint:disable-next-line:no-unused-expression
+    expect(quiz1Enabled).to.be.true;
+    // tslint:disable-next-line:no-unused-expression
+    expect(quiz2Enabled).to.be.true;
+    // tslint:disable-next-line:no-unused-expression
+    expect(quiz3Enabled).to.be.false;
+
+    await startQuiz('1');
+    const nextButton = await getNextButton();
+    const finishButton = await driver.find('#finish-button');
+
+    // 1st question
+    let questionStatement = await driver.find('#question').getText();
+    expect(questionStatement).to.equal('Ile to 2+2?');
+    await driver.find('input[name="answer"]').sendKeys('4'); // send correct answer
+    // wait 1 second
+    await delay(1000);
+    await nextButton.click();
+
+    // 2nd question
+    questionStatement = await driver.find('#question').getText();
+    expect(questionStatement).to.equal('Ile wynosi 10*10?');
+    await driver.find('input[name="answer"]').sendKeys('10'); // send incorrect answer
+    // wait 2 seconds
+    await delay(2000);
+    await finishButton.click();
+
+    // check scores and times
+    await driver.find('#display-scores-btn').click();
+
+    // check if score is displayed
+    const scoreDisplayed = await quizScoreDisplayed(1);
+    // tslint:disable-next-line:no-unused-expression
+    expect(scoreDisplayed).to.be.true;
+
+    // number of correct answers should be 1 out of 2
+    const correctAnswers = await driver.find(`#correct-for-quiz-id-1`).getText();
+    expect(correctAnswers).to.equal('1');
+
+    const numberOfQuestions = await driver.find(`#questions-number-for-quiz-id-1`).getText();
+    expect(numberOfQuestions).to.equal('2');
+
+    // users time spend should be about 1sec and 2sec for 1st and 2nd question
+    let usersTime = parseFloat(await driver.find(`#users-time-for-quiz-id-1-and-q-0`).getText());
+    expect(usersTime).to.be.above(1);
+    expect(usersTime).to.be.below(1.4);
+
+    usersTime = parseFloat(await driver.find(`#users-time-for-quiz-id-1-and-q-1`).getText());
+    expect(usersTime).to.be.above(2);
+    expect(usersTime).to.be.below(2.4);
+  });
 });
 
 
