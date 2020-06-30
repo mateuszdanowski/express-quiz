@@ -35,7 +35,6 @@ initialize(passport);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(cookieProps.secret));
-// app.use(csurf({cookie: true}));
 app.use(session({
   resave: false,
   saveUninitialized: false,
