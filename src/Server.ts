@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import path from 'path';
 import helmet from 'helmet';
 import session from 'express-session'
+import csurf from 'csurf';
 
 // tslint:disable-next-line:no-var-requires
 const SQLiteStore = require('connect-sqlite3')(session);
@@ -34,6 +35,7 @@ initialize(passport);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(cookieProps.secret));
+// app.use(csurf({cookie: true}));
 app.use(session({
   resave: false,
   saveUninitialized: false,
@@ -96,27 +98,32 @@ app.set('views', viewsDir);
 const staticDir = path.join(__dirname, 'public');
 app.use(express.static(staticDir));
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', csurf({cookie: true}), (req: Request, res: Response) => {
+  res.cookie('csrfToken', req.csrfToken(), {secure: true});
   res.sendFile('login.html', {root: viewsDir});
 });
 
-app.get('/quiz', checkAuth, (req: Request, res: Response) => {
+app.get('/quiz', csurf({cookie: true}), checkAuth, (req: Request, res: Response) => {
+  res.cookie('csrfToken', req.csrfToken(), {secure: true});
   res.sendFile('quiz.html', {root: viewsDir});
 });
 
-app.get('/addQuiz', checkAuth, (req: Request, res: Response) => {
+app.get('/addQuiz', csurf({cookie: true}), checkAuth, (req: Request, res: Response) => {
+  res.cookie('csrfToken', req.csrfToken(), {secure: true});
   res.sendFile('addQuiz.html', {root: viewsDir});
 });
 
-app.get('/password', checkAuth, (req: Request, res: Response) => {
+app.get('/password', csurf({cookie: true}), checkAuth, (req: Request, res: Response) => {
+  res.cookie('csrfToken', req.csrfToken(), {secure: true});
   res.sendFile('password.html', {root: viewsDir});
 });
 
 app.get('/scores', checkAuth, (req: Request, res: Response) => {
+  // res.cookie('csrfToken', req.csrfToken(), {secure: true});
   res.sendFile('scores.html', {root: viewsDir});
 });
 
-app.get('/play', checkAuth, async (req: Request, res: Response) => {
+app.get('/play', csurf({cookie: true}), checkAuth, async (req: Request, res: Response) => {
   const userId = req.session!.passport.user;
   const quizId = Number(req.query.quizId);
   const isFinished = (await scoreDao.getForQuizAndUser(quizId, userId)).length > 0;
@@ -125,6 +132,7 @@ app.get('/play', checkAuth, async (req: Request, res: Response) => {
   }
   req.session!.quizId = quizId;
   const quiz = await quizDao.getOneById(quizId);
+  res.cookie('csrfToken', req.csrfToken(), {secure: true});
   res.sendFile('play.html', {root: viewsDir, quiz});
 });
 

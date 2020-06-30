@@ -1,3 +1,8 @@
+const csrfInput = document.getElementById('csrf');
+const csrfCookie = document.cookie.split('; ').find(
+    cookie => cookie.startsWith('csrfToken'));
+csrfInput.value = csrfCookie.split('=')[1];
+
 document.addEventListener('click', function (event) {
   event.preventDefault();
   const ele = event.target;

@@ -27,6 +27,7 @@
     </div>
     <div id="quiz-choice" class="form">
       <form action="/play" method="get">
+        <input name="_csrf" id="csrf" type="hidden">
         <label>
           Wybierz quiz z listy dostępnych:
           <select id="quizzes-list-anchor" name="quizId" required></select>

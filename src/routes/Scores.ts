@@ -45,6 +45,8 @@ router.get('/allForUser', async (req: Request, res: Response) => {
 
 router.post('/add', async (req: Request, res: Response) => {
   // Check parameters
+  console.log('ADDDD');
+  console.log(req.body);
   const {scoreData, receivedDataTime} = req.body;
   if (!(scoreData && receivedDataTime)) {
     return res.status(BAD_REQUEST).json({

@@ -16,8 +16,10 @@
     <div id="introduction" class="title">
       Aby rozwiązywać quizy, musisz być zalogowany!
     </div>
+
     <div class="form">
         <form action="/login" method="post">
+          <input name="_csrf" id="csrf" type="hidden">
           <label>
             <input id="username-input" type="text" name="username" placeholder="Login">
           </label>
@@ -30,4 +32,5 @@
   </div>
 </div>
 </body>
+<script defer src="scripts/login.js"></script>
 </html>
